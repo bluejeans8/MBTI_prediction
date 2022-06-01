@@ -69,6 +69,8 @@ def score_each_axis(p1_chat, p2_chat, axis):
         for tagged_word in p2_chat:
             if tagged_word == val:
                 p2_count += 1
+    print("p1 유저", axis, "갯수:", p1_count)
+    print("p2 유저", axis, "갯수:", p2_count)
     return p1_count, p2_count
 
 

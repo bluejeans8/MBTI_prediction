@@ -22,8 +22,11 @@ for filename in os.listdir(dir_name):
             p2_user = User(p2_name, [0, 0, 0, 0])
             user_DB.add_user(p2_user)
 
+        print("p1_유저:", p1_user.name, "p2_유저:", p2_user.name)
         # 채팅 내역을 비교, 두 유저의 mbti_score 를 update
         score_mbti(p1_user, p1_chat, p2_user, p2_chat)
+        print(p1_user.name, "점수:", p1_user.score)
+        print(p2_user.name, "점수:", p2_user.score)
 
     f.close()
 
