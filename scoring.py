@@ -1,49 +1,55 @@
+import csv
+import re
+import pandas as pd
 from konlpy.tag import Okt
 from mbti_categories import *
 
 
-def get_pos(f):
+def parsing(line):
+    i = 1
+    name = ""
+    while line[i] != ']':
+        name += line[i]
+        i += 1
+    i += 1
+    while line[i] != ']':
+        i += 1
+    message = line[i+1:]
+    return name, message
+
+
+def parse_and_tag(file_path):
     okt = Okt()
-    # 첫번째 참가자 대화 내용 및 이름
+    data = dict()
+    # 첫번째 참가자 이름
     p1_name = ""
-    p1_chat = []
-    # 두번째 참가자 대화 내용 및 이름
+    # 두번째 참가자 이름
     p2_name = ""
-    p2_chat = []
-
-    s = f.readlines()
+    # use regular expression
+    kakao_msg_pattern = "오\S [0-9]{1,2}:[0-9]{1,2}"
     # 채팅을 한줄씩 읽기
-    for line in s:
-        try:
-            if line[:2] != "20":
-                continue
-            comma = line.find(",")
-            if comma == -1:
-                continue
+    for line in file_path:
+        if re.search(kakao_msg_pattern, line):
+            cur_name, message = parsing(line)
+
+            # 대화 참여자 이름을 추출 및 저장 과정
+            if p1_name == "":
+                p1_name = cur_name
+            elif p2_name == "" and p1_name != cur_name:
+                p2_name = cur_name
+
+            # 각 대화 참여자 별로 채팅 내역을 tag 후 저장
+            pos = okt.pos(message)
+            if cur_name in data:
+                data[cur_name] += pos
             else:
-                comma += 1
-                name_and_chat = line[comma:]
-                colon = name_and_chat.find(":")
-
-                cur_name = name_and_chat[:colon-1]
-                cur_chat = name_and_chat[colon+1:]
-
-                # 대화 참여자 이름을 추출 및 저장 과정
-                if p1_name == "":
-                    p1_name = cur_name
-                elif p2_name == "" and p1_name != cur_name:
-                    p2_name = cur_name
-
-                # 각 대화 참여자 별로 채팅 내역을 저장
-                pos = okt.pos(cur_chat)
-                if cur_name == p1_name:
-                    p1_chat += pos
-                elif cur_name == p2_name:
-                    p2_chat += pos
-        except:
+                data[cur_name] = pos
+        else:
             continue
-
-    return p1_name, p1_chat, p2_name, p2_chat
+    # 결과를 DataFrame 형태로 리턴
+    result = pd.DataFrame([data])
+    result.columns = [p1_name, p2_name]
+    return result
 
 
 # 채팅 내역을 비교, 두 유저의 mbti_score 를 update
