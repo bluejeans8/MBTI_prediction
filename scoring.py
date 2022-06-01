@@ -46,26 +46,29 @@ def get_pos(f):
     return p1_name, p1_chat, p2_name, p2_chat
 
 
+# 채팅 내역을 비교, 두 유저의 mbti_score 를 update
 def score_mbti(p1_user, p1_chat, p2_user, p2_chat):
+
     for axis in Mbti:
-        p1_score, p2_score = score_each_axis(p1_chat, p2_chat, axis)
-        if p1_score > p2_score:
+        p1_count, p2_count = score_each_axis(p1_chat, p2_chat, axis)
+        if p1_count > p2_count:
             p1_user.score[axis] += 1
             p2_user.score[axis] -= 1
-        elif p1_score < p2_score:
+        elif p1_count < p2_count:
             p1_user.score[axis] -= 1
             p2_user.score[axis] += 1
 
 
+# Mbti axis (E, N, F, J) 별로 해당 category 의 val 존재 counting
 def score_each_axis(p1_chat, p2_chat, axis):
-    p1_score, p2_score = 0, 0
+    p1_count, p2_count = 0, 0
     for val in mbti[axis]:
         for tagged_word in p1_chat:
             if tagged_word == val:
-                p1_score += 1
+                p1_count += 1
         for tagged_word in p2_chat:
             if tagged_word == val:
-                p2_score += 1
-    return p1_score, p2_score
+                p2_count += 1
+    return p1_count, p2_count
 
 

@@ -1,6 +1,7 @@
 from enum import IntEnum
 
 
+# Mbti axis
 class Mbti(IntEnum):
     E = 0
     N = 1

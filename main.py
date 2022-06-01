@@ -21,6 +21,7 @@ for filename in os.listdir("kakaotalk_texts"):
             p2_user = User(p2_name, [0, 0, 0, 0])
             user_DB.add_user(p2_user)
 
+        # 채팅 내역을 비교, 두 유저의 mbti_score 를 update
         score_mbti(p1_user, p1_chat, p2_user, p2_chat)
 
     f.close()
