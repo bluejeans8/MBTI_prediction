@@ -4,9 +4,10 @@ from scoring import *
 import os
 
 user_DB = UserDB()
+dir_name = "kakaotalk_texts"
 
-for filename in os.listdir("kakaotalk_texts"):
-    with open(os.path.join("kakaotalk_texts", filename), 'r', encoding='utf-8') as f:
+for filename in os.listdir(dir_name):
+    with open(os.path.join(dir_name, filename), 'r', encoding='utf-8') as f:
         p1_name, p1_chat, p2_name, p2_chat = get_pos(f)
 
         p1_user = user_DB.find_user(p1_name)
