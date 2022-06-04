@@ -58,12 +58,13 @@ def score_mbti(p1_user, p1_chat, p2_user, p2_chat):
 
     for axis in Mbti:
         p1_count, p2_count = score_each_axis(p1_chat, p2_chat, axis)
-        if p1_count > p2_count:
-            p1_user.score[axis] += 1
-            p2_user.score[axis] -= 1
-        elif p1_count < p2_count:
-            p1_user.score[axis] -= 1
-            p2_user.score[axis] += 1
+        if p1_count == 0 and p2_count == 0:
+            print("표본 오류:", p1_user, p2_user)
+            exit(-1)
+        else:
+            ratio = p1_count / (p1_count + p2_count)
+            p1_user.acc_score[axis] += ratio * 100
+            p2_user.acc_score[axis] += (1 - ratio) * 100
 
 
 # Mbti axis (E, N, F, J) 별로 해당 category 의 val 존재 counting
