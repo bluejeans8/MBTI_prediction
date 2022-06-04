@@ -1,3 +1,6 @@
+from mbti_categories import *
+
+
 class UserDB:
 
     Users = []
@@ -12,4 +15,15 @@ class UserDB:
             if user.name == name:
                 return user
         return -1
+
+    def print_users_mbti(self):
+        for user in self.Users:
+            mbti_string = ""
+            mbti_score = user.mbti_score()
+            for key in mbti_score:
+                if mbti_score[key] > 0:
+                    mbti_string += mbti_axis[key][0]
+                else:
+                    mbti_string += mbti_axis[key][1]
+            print(user.name, "MBTI는:", mbti_string)
 

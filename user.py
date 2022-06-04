@@ -2,13 +2,9 @@ from mbti_categories import *
 
 
 class User:
-    def __init__(self, name, score):
+    def __init__(self, name):
         self.name = name
-        self.score = score
+        self.score = {Mbti.E: 0, Mbti.N: 0, Mbti.F: 0, Mbti.J: 0}
 
     def mbti_score(self):
-        e_score = self.score[Mbti.E]
-        n_score = self.score[Mbti.N]
-        f_score = self.score[Mbti.F]
-        j_score = self.score[Mbti.J]
-        return e_score, n_score, f_score, j_score
+        return self.score

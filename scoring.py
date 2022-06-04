@@ -3,6 +3,7 @@ import re
 import pandas as pd
 from konlpy.tag import Okt
 from mbti_categories import *
+from user import *
 
 
 def parsing(line):
@@ -68,7 +69,7 @@ def score_mbti(p1_user, p1_chat, p2_user, p2_chat):
 # Mbti axis (E, N, F, J) 별로 해당 category 의 val 존재 counting
 def score_each_axis(p1_chat, p2_chat, axis):
     p1_count, p2_count = 0, 0
-    for val in mbti[axis]:
+    for val in morphemes[axis]:
         for tagged_word in p1_chat:
             if tagged_word == val:
                 p1_count += 1
