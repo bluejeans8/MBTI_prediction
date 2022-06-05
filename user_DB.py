@@ -18,10 +18,12 @@ class UserDB:
                 return user
         return -1
 
+    # 모든 유저의 MBTI를 출력
     def print_all_users_mbti(self):
         for user in self.Users:
             print(user.get_user_mbti_string())
 
+    # 본인의 MBTI chart를 출력
     def display_main_user_chart(self):
         argmax = numpy.argmax([user.compare_count for user in self.Users])
         self.Users[argmax].display_chart()

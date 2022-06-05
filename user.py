@@ -11,6 +11,7 @@ class User:
         self.acc_score = {Mbti.E: 0, Mbti.N: 0, Mbti.F: 0, Mbti.J: 0}
         self.compare_count = 0
 
+    # 각 mbti axis에 해당하는 점수를 반환
     def mbti_score(self):
         e_score = self.acc_score[Mbti.E] / self.compare_count
         n_score = self.acc_score[Mbti.N] / self.compare_count
@@ -19,6 +20,7 @@ class User:
 
         return {Mbti.E: e_score, Mbti.N: n_score, Mbti.F: f_score, Mbti.J: j_score}
 
+    # 유저의 예상 mbti 문자열을 반환
     def get_user_mbti_string(self):
         mbti_string = ""
         mbti_score = self.mbti_score()
@@ -30,6 +32,7 @@ class User:
         mbti_string = self.name + "씨의 예상 MBTI는: " + mbti_string + "입니다."
         return mbti_string
 
+    # 유저의 예상 mbti chart를 출력
     def display_chart(self):
         e_score = int(self.mbti_score()[Mbti.E])
         i_score = 100 - e_score

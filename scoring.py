@@ -7,6 +7,7 @@ from mbti_categories import *
 from user import *
 
 
+# 채팅의 한 줄을 이름과 메시지 형태로 파싱
 def parsing(line):
     i = 1
     name = ""
@@ -20,6 +21,7 @@ def parsing(line):
     return name, message
 
 
+# 카카오톡 채팅방의 각 줄을 파싱하고, 태깅을 한 result를 반환
 def parse_and_tag(file_path):
     okt = Okt()
     data = dict()
