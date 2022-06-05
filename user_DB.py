@@ -1,4 +1,6 @@
 from mbti_categories import *
+import numpy
+import matplotlib.pyplot as plt
 
 
 class UserDB:
@@ -16,17 +18,11 @@ class UserDB:
                 return user
         return -1
 
-    def print_users_mbti(self):
+    def print_all_users_mbti(self):
         for user in self.Users:
-            mbti_string = ""
-            mbti_score = user.mbti_score()
-            for key in mbti_score:
-                if mbti_score[key] > 50:
-                    mbti_string += mbti_axis[key][0]
-                else:
-                    mbti_string += mbti_axis[key][1]
-            print(user.name, "MBTI는:", mbti_string)
+            print(user.get_user_mbti_string())
 
-    # https://matplotlib.org/stable/gallery/lines_bars_and_markers/horizontal_barchart_distribution.html#sphx-glr-gallery-lines-bars-and-markers-horizontal-barchart-distribution-py
-    def display_chart(self):
-        return self.Users
+    def display_main_user_chart(self):
+        argmax = numpy.argmax([user.compare_count for user in self.Users])
+        self.Users[argmax].display_chart()
+        plt.show()

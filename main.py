@@ -39,7 +39,8 @@ for filename in os.listdir(dir_name):
 
     f.close()
 
-user_DB.print_users_mbti()
+user_DB.print_all_users_mbti()
+user_DB.display_main_user_chart()
 
 
 
