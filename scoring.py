@@ -1,3 +1,4 @@
+
 import csv
 import re
 import pandas as pd
@@ -38,6 +39,8 @@ def parse_and_tag(file_path):
                 p1_name = cur_name
             elif p2_name == "" and p1_name != cur_name:
                 p2_name = cur_name
+            elif p1_name != cur_name and p2_name != cur_name:
+                continue
 
             # 각 대화 참여자 별로 채팅 내역을 tag 후 저장
             pos = okt.pos(message)
@@ -49,6 +52,7 @@ def parse_and_tag(file_path):
             continue
     # 결과를 DataFrame 형태로 리턴
     result = pd.DataFrame([data])
+    print(result)
     result.columns = [p1_name, p2_name]
     return result
 
