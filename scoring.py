@@ -65,7 +65,7 @@ def score_mbti(p1_user, p1_chat, p2_user, p2_chat):
     for axis in Mbti:
         p1_count, p2_count = score_each_axis(p1_chat, p2_chat, axis)
         if p1_count == 0 and p2_count == 0:
-            print("표본 오류:", p1_user, p2_user)
+            print("채팅 표본이 너무 적습니다!:", p1_user, p2_user)
             exit(-1)
         else:
             ratio = p1_count / (p1_count + p2_count)
