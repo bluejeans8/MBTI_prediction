@@ -23,7 +23,7 @@ class UserDB:
         for user in self.Users:
             print(user.get_user_mbti_string())
 
-    # 본인의 MBTI chart를 출력
+    # text에서 가장 많이 등장한 사람의 MBTI chart를 출력
     def display_main_user_chart(self):
         argmax = numpy.argmax([user.compare_count for user in self.Users])
         self.Users[argmax].display_chart()
