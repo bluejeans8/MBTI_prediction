@@ -1,4 +1,6 @@
-# MBTI_prediction
+# Prediction of a Kakaotalk user’s MBTI type using One-to-One chatting text
+
+#### JinSeok Kim, Seunghyun Kim
 
 ## Abstract
 
